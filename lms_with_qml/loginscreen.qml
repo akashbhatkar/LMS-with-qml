@@ -74,6 +74,10 @@ Item {
           height: 30
           width: 150
           text: qsTr("Sign Up")
+
+          onClicked: {
+              lmsstack.replace(Qt.resolvedUrl("qrc:/signup.qml"))
+          }
       }
       }
 

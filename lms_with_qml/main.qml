@@ -12,7 +12,8 @@ Window {
         id:lmsstack
         anchors.fill:parent
         initialItem: Qt.resolvedUrl("qrc:/loginscreen.qml")
-    }
 
+    }
+//    lmsstack.replace:
 
 }
