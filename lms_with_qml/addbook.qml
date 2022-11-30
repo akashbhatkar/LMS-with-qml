@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.3
+import QtQuick.Controls 1.4
 Item {
     id: addbookroot
 
@@ -29,6 +30,7 @@ Column{
             }
 
             ComboBox{
+                width: 200
                 model: ['Select Quantity','1','2','3','4','5','6','7','8','9']
             }
         }

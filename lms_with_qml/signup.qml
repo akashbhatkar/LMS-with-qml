@@ -1,10 +1,13 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.3
+import QtQuick.Controls 1.4
+
 Item {
     id: signuproot
 
     GroupBox{
         id: signupgroup
+        title: ""
         anchors.centerIn: parent
 
 

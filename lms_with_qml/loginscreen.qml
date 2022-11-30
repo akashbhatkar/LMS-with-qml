@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.3
+import QtQuick.Controls 1.4
 
 Item {
 
@@ -8,10 +9,11 @@ Item {
 
     GroupBox
     {
+        anchors.centerIn: parent
         id: logingroup
         height: 346
         width: 416
-        anchors.centerIn: parent
+
     Column{
         spacing: 20
         id:logincolumn
@@ -25,7 +27,7 @@ Item {
             text: qsTr("Library Management System ")
             font.bold: true
             font.pointSize: 20
-            color: "red"
+            color: "orange"
             anchors.bottom: logingroup.top
             anchors.bottomMargin: 6
             anchors.left: parent.left
@@ -34,6 +36,7 @@ Item {
             id: userlabel
             text: qsTr("Username")
             font.pointSize: 15
+            font.bold:true
         }
 
        TextField{
@@ -68,6 +71,10 @@ Item {
           height: 30
           width: 150
           text: qsTr("Login")
+
+          onClicked: {
+              lmsstack.replace(Qt.resolvedUrl("qrc:/mainmenu.qml"))
+          }
       }
       Button{
           id: signupbutton
@@ -76,6 +83,7 @@ Item {
           text: qsTr("Sign Up")
 
           onClicked: {
+
               lmsstack.replace(Qt.resolvedUrl("qrc:/signup.qml"))
           }
       }

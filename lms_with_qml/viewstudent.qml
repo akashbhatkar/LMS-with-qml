@@ -1,13 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.3
+import QtQuick.Controls 1.4
 
 Item {
     id: viewstudentroot
-
-//    Rectangle{
-//        height: 500
-//        width: 500
-//        color: "red"
 
     GroupBox{
         title: "View User"

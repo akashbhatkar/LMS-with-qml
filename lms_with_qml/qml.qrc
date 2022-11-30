@@ -3,5 +3,12 @@
         <file>main.qml</file>
         <file>loginscreen.qml</file>
         <file>signup.qml</file>
+        <file>mainmenu.qml</file>
+        <file>adduser.qml</file>
+        <file>viewstudent.qml</file>
+        <file>addbook.qml</file>
+        <file>viewbook.qml</file>
+        <file>issuebook.qml</file>
+        <file>returnbook.qml</file>
     </qresource>
 </RCC>
