@@ -6,7 +6,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("DEVELOPED BY: AKASH BHATKAR")
 
     StackView{
         id:lmsstack
@@ -14,6 +14,6 @@ Window {
         initialItem: Qt.resolvedUrl("qrc:/loginscreen.qml")
 
     }
-//    lmsstack.replace:
+
 
 }

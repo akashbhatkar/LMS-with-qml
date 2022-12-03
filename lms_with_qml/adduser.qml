@@ -5,7 +5,136 @@ import QtQuick.Controls 1.4
 Item {
 
     id: adduserroot
+    Popup{
+        anchors.centerIn:parent
+        width: aubooks.width
+        height: aubooks.height
+
+        id: studentwarning
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("please Enter student name and Email -Id")
+            font.pointSize: 10
+            font.bold: true
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                studentwarning.close()
+            }
+        }
+        }
+    }
+
+    Popup{
+        anchors.centerIn:parent
+        width: aubooks.width
+        height: aubooks.height
+
+        id: repeatname
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("Student already Exist ")
+            font.pointSize: 10
+            font.bold: true
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                repeatname.close()
+            }
+        }
+        }
+    }
+
+    Popup
+    {
+            anchors.centerIn:parent
+            width: aubooks.width
+            height: aubooks.height
+
+            id: successuser
+            Column{
+                anchors.centerIn:parent
+                spacing: 40
+                Label{
+
+                    text: qsTr("Succesfully Added")
+                    font.bold: true
+                    font.pointSize: 25
+                    color: "green"
+                }
+                Button{
+                    height: 30
+                    width: 200
+                    text: "OK"
+                    onClicked: {
+                        successuser.close()
+                    }
+            }
+        }
+        }
+
+
+    Popup{
+        anchors.centerIn:parent
+        width: aubooks.width
+        height: aubooks.height
+
+        id: validemailwarning
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("E- Mail ID is not valid")
+            font.pointSize: 10
+            font.bold: true
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                validemailwarning.close()
+            }
+        }
+        }
+    }
+
     GroupBox{
+        id: aubooks
         title: "ADD STUDENT"
         anchors.centerIn: parent
 
@@ -20,6 +149,7 @@ Item {
 
             }
             TextField{
+                id: studenttext
                 height: 30
                 width: 200
 
@@ -27,16 +157,6 @@ Item {
         }
         Row{
             spacing: 30
-            Label{
-                id:monolbl
-                text: qsTr("Mobile No")
-
-            }
-            TextField{
-                height: 30
-                width: 200
-
-            }
         }
         Row{
             spacing: 35
@@ -46,6 +166,7 @@ Item {
 
             }
             TextField{
+                id:emailtext
                 height: 30
                 width: 200
 
@@ -58,6 +179,27 @@ Item {
                 height: 30
                 width:150
                 text: qsTr("Add ")
+
+                onClicked: {
+                    var x=testing.checkvalidstudent(studenttext.text,emailtext.text)
+                    if(x===1)
+                    {
+                        studentwarning.open()
+                    }
+                    else if(x===2)
+                    {
+                        validemailwarning.open()
+                    }
+                    else if(x===4)
+                    {
+                        repeatname.open()
+                    }
+
+                    else
+                    {
+                        successuser.open()
+                    }
+                }
             }
             Button{
                 id: auback

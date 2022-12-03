@@ -7,17 +7,17 @@ Item {
     Popup{
         id:logoutpop
         width: groupmenu.width
-        height: 500
+        height: groupmenu.height
         anchors.centerIn: parent
 
         Column{
             id: menucolumn
             anchors.centerIn: parent
             spacing: 30
-            anchors.fill: groupmenu
+//            anchors.fill: groupmenu
 
         Label{
-            text: qsTr("Are you sure? you want to logout")
+            text: qsTr("Are you sure, you want to logout?")
             font.pointSize: 10
 
         }
@@ -96,6 +96,7 @@ Item {
            width: 200
            text: qsTr("Add Books")
            onClicked: {
+
                lmsstack.replace(Qt.resolvedUrl("qrc:/addbook.qml"))
            }
 

@@ -5,7 +5,40 @@ import QtQuick.Controls 1.4
 
 Item {
     id:ibroot
+    Popup{
+        anchors.centerIn:parent
+        width: ibgroup.width
+        height: ibgroup.height
+
+        id: nobook
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("Enter Valid Student and Book Name")
+            font.pointSize: 15
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                nobook.close()
+            }
+        }
+        }
+    }
+
     GroupBox{
+        id: ibgroup
         anchors.centerIn:  parent
         Column{
             spacing: 30
@@ -18,8 +51,10 @@ Item {
                 }
 
                 TextField{
+                    id: booktext
                     height: 30
                     width: 200
+
                 }
             }
             Row{
@@ -29,9 +64,11 @@ Item {
                     id: ibstdlbl
                     text: qsTr("Student")
                 }
-                ComboBox{
+                TextField{
+                    id: studenttext
+                    height: 30
                     width: 200
-                    model: ['Select student']
+
                 }
             }
 
@@ -44,7 +81,16 @@ Item {
                     id: issue
                     height: 30
                     width:150
-                    text: qsTr("Add ")
+                    text: qsTr("Issue ")
+
+                    onClicked: {
+                        var x=testing.validbook(booktext.text,studenttext.text)
+                        if(x===1)
+                        {
+                            nobook.open()
+                        }
+
+                    }
                 }
                 Button{
                     id: ibback

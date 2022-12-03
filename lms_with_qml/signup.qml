@@ -4,6 +4,130 @@ import QtQuick.Controls 1.4
 
 Item {
     id: signuproot
+    Popup{
+        anchors.centerIn:parent
+        width: signupgroup.width
+        height: signupgroup.height
+
+        id: success
+        Column{
+            anchors.centerIn:parent
+            spacing: 40
+            Label{
+
+                text: qsTr("Succesfully Added")
+                font.bold: true
+                font.pointSize: 25
+                color: "green"
+            }
+            Button{
+                height: 30
+                width: 200
+                text: "OK"
+                onClicked: {
+                    success.close()
+                }
+        }
+    }
+    }
+
+
+    Popup{
+        anchors.centerIn:parent
+        width: signupgroup.width
+        height: signupgroup.height
+
+        id: repeatentry
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("User already Exist")
+            font.pointSize: 15
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                repeatentry.close()
+            }
+        }
+        }
+
+        Popup{
+            anchors.centerIn:parent
+            width: signupgroup.width
+            height: signupgroup.height
+
+            id: warning
+            Column{
+                anchors.centerIn:parent
+                spacing: 20
+                Label{
+
+                    text: qsTr("! Warning")
+                    font.bold: true
+                    font.pointSize: 35
+                    color: "red"
+                }
+            Label{
+
+                text: qsTr("Enter same password")
+                font.pointSize: 15
+            }
+            Button{
+                height: 30
+                width: 200
+                text: "OK"
+                onClicked: {
+                    warning.close()
+                }
+            }
+            }
+        }
+
+    }
+    Popup{
+        anchors.centerIn:parent
+        width: signupgroup.width
+        height: signupgroup.height
+
+        id: notentered
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("Enter Username and password")
+            font.pointSize: 15
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                notentered.close()
+            }
+        }
+        }
+
+    }
 
     GroupBox{
         id: signupgroup
@@ -81,7 +205,31 @@ Item {
                     width: 150
                     text: qsTr("Sign up")
 
+                    onClicked: {
+
+                     var x=testing.signup(usersigntext.text,passsigntext.text,repasssigntext.text)
+
+                        if(x===2)
+                        {
+                            warning.open()
+                        }
+                        if(x===3)
+                        {
+                            notentered.open()
+                        }
+                        if(x===4)
+                        {
+                            repeatentry.open()
+                        }
+
+                        if(x===0)
+                        {
+                            success.open()
+                        }
+                    }
+
                 }
+
                 Button{
                     id: signupback
                     height: 30

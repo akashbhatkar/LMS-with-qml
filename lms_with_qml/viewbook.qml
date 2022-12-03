@@ -14,11 +14,15 @@ Item {
             anchors.fill: parent
             spacing: 10
 
-            ScrollView{
-                id: vbscroll
-                width: parent.width
-                height: parent.height- (vbback.height)
-            }
+//            ScrollView{
+//                id: vbscroll
+//                width: parent.width
+//                height: parent.height- (vbback.height)
+//}
+
+
+
+
 
             Button{
                 id: vbback
@@ -30,6 +34,15 @@ Item {
                 }
             }
         }
-    }
 
+        TextArea {
+            id: textArea
+            x: 8
+            y: 62
+            width: 608
+            height: 333
+            text: printallbooks()
+        }
+    }
 }
+

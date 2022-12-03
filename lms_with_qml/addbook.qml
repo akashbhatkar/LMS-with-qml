@@ -4,6 +4,68 @@ import QtQuick.Controls 1.4
 Item {
     id: addbookroot
 
+
+    Popup
+    {
+            anchors.centerIn:parent
+            width: abgroup.width
+            height: abgroup.height
+
+            id: successbookadd
+            Column{
+                anchors.centerIn:parent
+                spacing: 40
+                Label{
+
+                    text: qsTr("Succesfully Added")
+                    font.bold: true
+                    font.pointSize: 25
+                    color: "green"
+                }
+                Button{
+                    height: 30
+                    width: 200
+                    text: "OK"
+                    onClicked: {
+                        successbookadd.close()
+                    }
+            }
+        }
+        }
+
+    Popup{
+        anchors.centerIn:parent
+        width: abgroup.width
+        height: abgroup.height
+
+        id: bookwarning
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("Enter valid Book and Quantity")
+            font.pointSize: 15
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                bookwarning.close()
+            }
+        }
+        }
+
+    }
+
     GroupBox{
         title: "ADD BOOK"
         anchors.centerIn: parent
@@ -18,6 +80,7 @@ Column{
             }
 
             TextField{
+                id: booktext
                 height: 30
                 width: 200
 
@@ -30,6 +93,7 @@ Column{
             }
 
             ComboBox{
+                id: quantitytext
                 width: 200
                 model: ['Select Quantity','1','2','3','4','5','6','7','8','9']
             }
@@ -40,6 +104,18 @@ Column{
                 height: 30
                 width: 150
                 text: qsTr("Add")
+
+                onClicked: {
+                    if(testing.checkvalidbooks(booktext.text,quantitytext.currentIndex)===1)
+                    {
+                        bookwarning.open()
+                    }
+
+                    else
+                    {
+                        successbookadd.open()
+                    }
+                }
             }
             Button{
                 height: 30
@@ -49,6 +125,7 @@ Column{
                 onClicked: {
                     lmsstack.replace(Qt.resolvedUrl("qrc:/mainmenu.qml"))
                 }
+
             }
         }
     }
