@@ -4,7 +4,17 @@ import QtQuick.Controls 2.3
 import QtQuick.Controls 1.4
 
 Item{
+    Image {
+        id: libraryimage
+        source: "qrc:/Image/library.jpg"
+        anchors.fill:parent
+    }
     Popup{
+        Image {
+            id: wrongpopupimg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
         anchors.centerIn: parent
         id: wrongpopup
         height: logingroup.height
@@ -28,6 +38,7 @@ Item{
             }
             Button{
                 text: qsTr("OK")
+                width: parent.width
                 onClicked: {
                     wrongpopup.close()
                 }
@@ -39,6 +50,11 @@ Item{
         id: notenteredwarning
         height: logingroup.height
         width: logingroup.width
+        Image {
+//            id: notenteredwarningomg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
 
         Column
         {
@@ -58,6 +74,7 @@ Item{
             }
             Button{
                 text: qsTr("OK")
+                width: parent.width
                 onClicked: {
                     notenteredwarning.close()
                 }
@@ -126,7 +143,7 @@ Item{
         color: "orange"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font.pointSize: 12
+        font.pointSize: 20
         font.bold: true
     }
 
@@ -137,6 +154,7 @@ Item{
         width: 89
         height: 27
         text: qsTr("UserName :")
+        color: "yellow"
         verticalAlignment: Text.AlignVCenter
         font.bold: true
         font.pointSize: 10
@@ -149,6 +167,7 @@ Item{
         width: 89
         height: 24
         text: qsTr("PassWord :")
+        color: "yellow"
         verticalAlignment: Text.AlignVCenter
         font.bold: true
         font.pointSize: 10

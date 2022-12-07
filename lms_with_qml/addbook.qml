@@ -3,13 +3,22 @@ import QtQuick.Controls 2.3
 import QtQuick.Controls 1.4
 Item {
     id: addbookroot
+    Image {
 
+        source: "qrc:/Image/addbookimg6.jpg"
+        anchors.fill:parent
+    }
 
     Popup
     {
             anchors.centerIn:parent
             width: abgroup.width
             height: abgroup.height
+            Image {
+
+                source: "qrc:/Image/checkrightclick.jpg"
+                anchors.fill:parent
+            }
 
             id: successbookadd
             Column{
@@ -39,6 +48,11 @@ Item {
         height: abgroup.height
 
         id: bookwarning
+        Image {
+//            id: nobookimg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
         Column{
             anchors.centerIn:parent
             spacing: 20

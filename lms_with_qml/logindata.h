@@ -4,6 +4,8 @@
 #include <QObject>
 #include<QSqlDatabase>
 #include<string>
+#include<QVariant>
+#include<QVariantList>
 
 
 
@@ -24,6 +26,9 @@ public:
     int checkrepeateentry(QString);
     bool issuetable();
     int existbookstudent(QString,QString);
+    void deleteentry(QString,QString);
+    int checkrepeatissue(QString,QString);
+
 
 
 signals:
@@ -34,7 +39,14 @@ public slots:
       int checkvalidbooks(QString,int);
       int checkvalidstudent(QString,QString);
       int validbook(QString,QString);
-      QString printAllBooks();
+      int returnbooks(QString);
+
+      QList<QString> bookpass();
+      QList<QString> quantitypass();
+      QList<QString> getstudent();
+      QList<QString> getemail();
+      int issuedbooks(QString,QString);
+//      QList<QString> booktoqml();
 
 private:
     QSqlDatabase m_db;

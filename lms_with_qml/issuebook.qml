@@ -4,8 +4,53 @@ import QtQuick.Controls 1.4
 
 
 Item {
+    Image {
+        id: issuebookimage
+        source: "qrc:/Image/issuebookimgg.JPG"
+        anchors.fill:parent
+    }
     id:ibroot
     Popup{
+        anchors.centerIn:parent
+        width: ibgroup.width
+        height: ibgroup.height
+        Image {
+//            id: nobookimg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
+        id: repeatentry
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+            Label{
+
+                text: qsTr("! Warning")
+                font.bold: true
+                font.pointSize: 35
+                color: "red"
+            }
+        Label{
+
+            text: qsTr("Book is already with the student")
+            font.pointSize: 15
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                repeatentry.close()
+            }
+        }
+        }
+    }
+    Popup{
+        Image {
+//            id: nobookimg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
         anchors.centerIn:parent
         width: ibgroup.width
         height: ibgroup.height
@@ -36,7 +81,36 @@ Item {
         }
         }
     }
+    Popup{
 
+        anchors.centerIn:parent
+        width: ibgroup.width
+        height: ibgroup.height
+        Image {
+
+            source: "qrc:/Image/checkrightclick.jpg"
+            anchors.fill:parent
+        }
+        id: success
+        Column{
+            anchors.centerIn:parent
+            spacing: 20
+
+        Label{
+
+            text: qsTr("Issued successfully ")
+            font.pointSize: 15
+        }
+        Button{
+            height: 30
+            width: 200
+            text: "OK"
+            onClicked: {
+                success.close()
+            }
+        }
+        }
+    }
     GroupBox{
         id: ibgroup
         anchors.centerIn:  parent
@@ -48,6 +122,8 @@ Item {
 
                 Label{
                     text: qsTr("Book Name")
+                    font.bold: true
+                    font.pointSize: 15
                 }
 
                 TextField{
@@ -62,7 +138,9 @@ Item {
 
                 Label{
                     id: ibstdlbl
-                    text: qsTr("Student")
+                    text: qsTr("Student ID")
+                    font.bold: true
+                    font.pointSize: 15
                 }
                 TextField{
                     id: studenttext
@@ -70,10 +148,6 @@ Item {
                     width: 200
 
                 }
-            }
-
-            Calendar{
-
             }
             Row{
                 spacing: 15
@@ -85,10 +159,20 @@ Item {
 
                     onClicked: {
                         var x=testing.validbook(booktext.text,studenttext.text)
+
                         if(x===1)
                         {
                             nobook.open()
                         }
+                        else if(x===4)
+                        {
+                            repeatentry.open()
+                        }
+                     else
+                        {
+                            success.open()
+                        }
+
 
                     }
                 }

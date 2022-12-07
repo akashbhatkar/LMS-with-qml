@@ -3,7 +3,11 @@ import QtQuick.Controls 2.3
 import QtQuick.Controls 1.4
 Item {
     id: menuroot
-
+    Image {
+        id: libraryimage
+        source: "qrc:/Image/librarymenu.jpg"
+        anchors.fill:parent
+    }
     Popup{
         id:logoutpop
         width: groupmenu.width
@@ -59,6 +63,8 @@ Item {
            text: qsTr("View Books")
            onClicked: {
                lmsstack.replace(Qt.resolvedUrl("qrc:/viewbook.qml"))
+
+
            }
 
         }

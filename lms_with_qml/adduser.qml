@@ -3,12 +3,21 @@ import QtQuick.Controls 2.3
 import QtQuick.Controls 1.4
 
 Item {
-
+    Image {
+        id: adduserimage
+        source: "qrc:/Image/viewstudent.jpg"
+        anchors.fill:parent
+    }
     id: adduserroot
     Popup{
         anchors.centerIn:parent
         width: aubooks.width
         height: aubooks.height
+        Image {
+//            id: nobookimg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
 
         id: studentwarning
         Column{
@@ -42,6 +51,11 @@ Item {
         anchors.centerIn:parent
         width: aubooks.width
         height: aubooks.height
+        Image {
+//            id: nobookimg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
 
         id: repeatname
         Column{
@@ -76,7 +90,11 @@ Item {
             anchors.centerIn:parent
             width: aubooks.width
             height: aubooks.height
+            Image {
 
+                source: "qrc:/Image/checkrightclick.jpg"
+                anchors.fill:parent
+            }
             id: successuser
             Column{
                 anchors.centerIn:parent
@@ -104,6 +122,11 @@ Item {
         anchors.centerIn:parent
         width: aubooks.width
         height: aubooks.height
+        Image {
+//            id: nobookimg
+            source: "qrc:/Image/warningsign.jpg"
+            anchors.fill:parent
+        }
 
         id: validemailwarning
         Column{

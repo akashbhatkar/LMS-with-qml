@@ -11,4 +11,15 @@
         <file>issuebook.qml</file>
         <file>returnbook.qml</file>
     </qresource>
+    <qresource prefix="/Image">
+        <file>issuebookimgg.JPG</file>
+        <file>librarymenu.jpg</file>
+        <file>viewbookimg.jpg</file>
+        <file>viewstudent.jpg</file>
+        <file>library.jpg</file>
+        <file>warningsign.jpg</file>
+        <file>addbookimg6.jpg</file>
+        <file>bookdrop.jpg</file>
+        <file>checkrightclick.jpg</file>
+    </qresource>
 </RCC>

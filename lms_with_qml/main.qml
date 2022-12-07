@@ -3,8 +3,8 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.3
 
 Window {
-    width: 640
-    height: 480
+    width: 740
+    height: 580
     visible: true
     title: qsTr("DEVELOPED BY: AKASH BHATKAR")
 
