@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Meter.qml</file>
+        <file>Startpage.qml</file>
+    </qresource>
+    <qresource prefix="/Images">
+        <file>speedo.png</file>
+        <file>dashboard_rpm-removebg-preview.png</file>
+        <file>dashboard_speedo (1) (1).png</file>
+    </qresource>
+</RCC>
