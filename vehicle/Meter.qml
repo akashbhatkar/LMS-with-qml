@@ -6,37 +6,79 @@ import QtQml 2.1
 Item {
 Rectangle{
     anchors.fill: parent
-    anchors.rightMargin: -2
+    anchors.rightMargin: -67
     anchors.bottomMargin: -1
-    anchors.leftMargin: 4
+    anchors.leftMargin: 1
     anchors.topMargin: 0
     gradient: Gradient{
         GradientStop{position: 0.0; color: "blue"}
         GradientStop{position: 0.7;color: "black"}
 
     }
+    Connections{
+        target: vehicletest
+        onNotifyVehicleSpeed:
+        {
+            if(speed>180)
+            {
+                vehicletest.stopTimer()
+            }
+            else
+                diall.value=speed
+        }
+
+        onNotifyEngineRPM:{
+            if(rpm>8)
+            {
+                vehicletest.stopRPM()
+            }
+            else
+                rpmdiall.value=rpm
+
+        }
+
+        onNotifyOutsideTemp:{
+            if(temp>35)
+            {
+                vehicletest.stopTemp()
+            }
+            else
+                templabel.text="Temp:-"+temp
+                
+
+        }
+
+//        onNotifyFuelLevel:{
+
+//        }
+
+//        onTotalEngineTime:{
+
+//        }
+    }
+
     Image {
         id: speedometerimage
         x: 16
-        y: 88
+        y: 92
 
         source: "qrc:/Images/dashboard_speedo (1) (1).png"
-        height: 225
-        width: 219
+        height: 250
+        width: 252
     }
 
     Dial{
         id:diall
-        x: 4
+        x: 2
         y: 99
-        height: 206
-        width: 246
+        height: 237
+        width: 288
         from: 0
         to:180
          Label {
              id: kmphlabel
-             x: 106
-             y: 88
+             x: 113
+             y: 98
              width: 77
              height: 31
             text: Math.round(diall.value)
@@ -68,23 +110,38 @@ Rectangle{
             label.text=date.toLocaleTimeString(Qt.locale("en_US"), "hh:mm:ss ap")
         }
     }
+
+    Label {
+        id: templabel
+        x: 304
+        y: 141
+        width: 77
+        height: 25
+        font.bold: true
+        font.pointSize: 15
+        color: "orange"
+        text: {
+            qsTr("Temp:-10")
+        }
+    }
 }
 Image {
     id: rpmimagbe
-    x: 402
+    x: 455
     y: 94
     source: "qrc:/Images/dashboard_rpm-removebg-preview.png"
-    height: 225
-    width: 219
+    height: 252
+    width: 252
 
     Dial{
         id:rpmdiall
-        x: -18
+        x: -23
         y: 7
-        height: 206
-        width: 246
+        height: 237
+        width: 288
         from: 1
         to:10
+
          Label {
              id: rpmlabel
              x: 92
@@ -103,6 +160,8 @@ Image {
          }
     }
 }
+
+
 }
 
 

@@ -19,6 +19,8 @@ set(PROJECT_SOURCES
         qml.qrc
 )
 
+    add_subdirectory(VehicleDataSender/)
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(vehicle
         MANUAL_FINALIZATION
@@ -46,6 +48,10 @@ target_compile_definitions(vehicle
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(vehicle
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+
+include_directories("${CMAKE_SOURCE_DIR}/VehicleDataSender")
+target_link_directories(vehicle PUBLIC VehicleDataSender/)
+target_link_libraries(vehicle PUBLIC VehicleDataSender)
 
 set_target_properties(vehicle PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

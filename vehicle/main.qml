@@ -3,7 +3,7 @@ import QtQuick.Window 2.12
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.5
 Window {
-    width: 640
+    width: 740
     height: 480
     visible: true
     title: qsTr("Hello World")
