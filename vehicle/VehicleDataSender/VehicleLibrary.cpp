@@ -5,10 +5,7 @@
 
 VehicleLibrary::VehicleLibrary(QObject *parent):QObject(parent)
 {
-    speedtimer.start(500);
-    rpmtimer.start(500);
-    temptimer.start(2000);
-    fueltimer.start(10000);
+
     connect(&speedtimer,&QTimer::timeout ,this,&VehicleLibrary::SpeedTimeout);
 
     connect(&rpmtimer,&QTimer::timeout ,this,&VehicleLibrary::RPMTimeout);
@@ -16,6 +13,14 @@ VehicleLibrary::VehicleLibrary(QObject *parent):QObject(parent)
     connect(&temptimer,&QTimer::timeout ,this,&VehicleLibrary::TempTimout);
 
     connect(&fueltimer,&QTimer::timeout ,this,&VehicleLibrary::FuelTimeout);
+
+    connect(&enginetimer,&QTimer::timeout ,this,&VehicleLibrary::EngineTime);
+
+    connect(&indicatortimerstart,&QTimer::timeout,this,&VehicleLibrary::Indicatorstart);
+
+    connect(&indicatortimerstop,&QTimer::timeout,this,&VehicleLibrary::Indicatorstop);
+
+
 }
 void VehicleLibrary::SpeedTimeout()
 {
@@ -42,20 +47,40 @@ void VehicleLibrary::TempTimout()
 
 void VehicleLibrary::FuelTimeout()
 {
-    emit notifyFuelLevel(0);
+    static int f=50;
+    f=f-1;
+    emit notifyFuelLevel(f);
 }
 
-void VehicleLibrary::startTimer()
+void VehicleLibrary::EngineTime()
 {
-    //    t1.start()
+    emit totalEngineTime();
+}
+
+void VehicleLibrary::Indicatorstart()
+{
+    emit indicatorBlink();
+}
+void VehicleLibrary::Indicatorstop()
+{
+    emit indicatorBlinkOff();
+}
+void VehicleLibrary::startTimers()
+{
+    speedtimer.start(500);
+    rpmtimer.start(500);
+    temptimer.start(2000);
+    fueltimer.start(10000);
+    enginetimer.start(1000);
+    indicatortimerstart.start(5000);
+    indicatortimerstop.start(10000);
+//    indicatorstartfunction();
+//    indicatortimer.setInterval(5000);
 }
 
 void VehicleLibrary::stopSpeed()
 {
     speedtimer.stop();
-
-
-
 }
 
 void VehicleLibrary::stopRPM()
@@ -71,5 +96,19 @@ void VehicleLibrary::stopTemp()
 void VehicleLibrary::stopFuel()
 {
     fueltimer.stop();
+}
+
+void VehicleLibrary::indicatorstartfunction()
+{
+        indicatortimerstart.start(5000);
+        indicatortimerstop.start(10000);
+}
+
+void VehicleLibrary::indicatorstopfunction()
+{
+//    indicatortimerstart.stop();
+//    indicatortimerstop.stop();
+    indicatorstartfunction();
+//    indicatortimerstop.start(500);
 }
 

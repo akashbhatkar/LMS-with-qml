@@ -12,31 +12,40 @@ public:
     VehicleLibrary(QObject *parent=nullptr);
 
 signals:
-//    void notify(QVariant speed);
     void notifyVehicleSpeed(int speed);
     void notifyEngineRPM(int rpm);
     void notifyOutsideTemp(int temp);
-    void notifyFuelLevel(int level);
+    void notifyFuelLevel(int fuel);
     void totalEngineTime();
+    void indicatorBlink();
+    void indicatorBlinkOff();
 
 private slots:
     void SpeedTimeout();
     void RPMTimeout();
     void TempTimout();
     void FuelTimeout();
+    void EngineTime();
+    void Indicatorstart();
+    void Indicatorstop();
 
 public slots:
-    void startTimer();
+    void startTimers();
     void stopSpeed();
     void stopRPM();
     void stopTemp();
     void stopFuel();
+    void indicatorstartfunction();
+    void indicatorstopfunction();
 
 private:
-    QTimer speedtimer;//t1;
-    QTimer rpmtimer;//t2;
-    QTimer temptimer;//t3;
-    QTimer fueltimer;//t4;
+    QTimer speedtimer;
+    QTimer rpmtimer;
+    QTimer temptimer;
+    QTimer fueltimer;
+    QTimer enginetimer;
+    QTimer indicatortimerstart;
+    QTimer indicatortimerstop;
 
 };
 #endif // QTIMER_INTGRN_H

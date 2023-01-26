@@ -6,11 +6,11 @@ Window {
     width: 740
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Vehicle Dashboard System")
 
   StackView{
       id: meterstack
-      anchors.fill: parent
+      anchors.fill:   parent
       initialItem: Qt.resolvedUrl("qrc:/Startpage.qml")
   }
 }

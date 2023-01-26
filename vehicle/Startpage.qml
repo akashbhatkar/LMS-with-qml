@@ -19,6 +19,8 @@ Item {
                 GradientStop{position: 0.0;color: "blue"}
                 GradientStop{position: 0.7;color: "black"}
             }
+            border.color: "yellow"
+            border.width: 15
             Text {
                 id:recttext
                 text: qsTr("START")
@@ -26,12 +28,18 @@ Item {
                 anchors.centerIn: parent
                 font.pointSize: 35
                 font.bold: true
+                font.family: "Times New Roman"
             }
 
             MouseArea{
                 anchors.fill: parent
-                onClicked: meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
+                onClicked:{
+
+                    meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
+                    vehicletest.startTimers();
+
 //                onPressAndHold: meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
+                }
             }
 
         }

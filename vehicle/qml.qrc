@@ -5,8 +5,22 @@
         <file>Startpage.qml</file>
     </qresource>
     <qresource prefix="/Images">
-        <file>speedo.png</file>
-        <file>dashboard_rpm-removebg-preview.png</file>
-        <file>dashboard_speedo (1) (1).png</file>
+        <file>fuelIndicatorGREEN.png</file>
+        <file>fuelIndicatorRED.png</file>
+        <file>speedo-removebg-preview.png</file>
+        <file>rpm_merter.png</file>
+        <file>LeftArrow.png</file>
+        <file>RightArrow.png</file>
+        <file>middleDashboard-removebg-preview.png</file>
+        <file>clock.png</file>
+        <file>Battery.png</file>
+        <file>car.png</file>
+        <file>DipperLight.png</file>
+        <file>lightOff.png</file>
+        <file>lightOn.png</file>
+        <file>tempIndicator.png</file>
+        <file>download.png</file>
+        <file>Glowlight.png</file>
+        <file>carDashboardWhite.jpg</file>
     </qresource>
 </RCC>
