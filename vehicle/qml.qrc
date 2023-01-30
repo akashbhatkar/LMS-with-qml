@@ -7,8 +7,6 @@
     <qresource prefix="/Images">
         <file>fuelIndicatorGREEN.png</file>
         <file>fuelIndicatorRED.png</file>
-        <file>speedo-removebg-preview.png</file>
-        <file>rpm_merter.png</file>
         <file>LeftArrow.png</file>
         <file>RightArrow.png</file>
         <file>middleDashboard-removebg-preview.png</file>
@@ -19,8 +17,10 @@
         <file>lightOff.png</file>
         <file>lightOn.png</file>
         <file>tempIndicator.png</file>
-        <file>download.png</file>
-        <file>Glowlight.png</file>
         <file>carDashboardWhite.jpg</file>
+        <file>blueglow.png</file>
+        <file>220Speedo.png</file>
+        <file>rpmwhite.png</file>
+        <file>background.png</file>
     </qresource>
 </RCC>

@@ -25,7 +25,7 @@ VehicleLibrary::VehicleLibrary(QObject *parent):QObject(parent)
 void VehicleLibrary::SpeedTimeout()
 {
     static int x=0;
-    x=x+10;
+    x=x+1;
 //    QString s=QString::number(x);
 //    emit Not(QVariant(s));
     emit notifyVehicleSpeed(x);
@@ -34,7 +34,7 @@ void VehicleLibrary::SpeedTimeout()
 void VehicleLibrary::RPMTimeout()
 {
     static int r=0;
-    r=r+1;
+    r=r+100;
     emit notifyEngineRPM(r);
 }
 
@@ -106,9 +106,6 @@ void VehicleLibrary::indicatorstartfunction()
 
 void VehicleLibrary::indicatorstopfunction()
 {
-//    indicatortimerstart.stop();
-//    indicatortimerstop.stop();
     indicatorstartfunction();
-//    indicatortimerstop.start(500);
 }
 

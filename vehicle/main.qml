@@ -3,8 +3,8 @@ import QtQuick.Window 2.12
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.5
 Window {
-    width: 740
-    height: 480
+    width: 750
+    height: 487
     visible: true
     title: qsTr("Vehicle Dashboard System")
 

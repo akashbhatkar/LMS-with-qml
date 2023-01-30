@@ -33,12 +33,21 @@ Item {
 
             MouseArea{
                 anchors.fill: parent
-                onClicked:{
-
+                onPressAndHold: {
                     meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
-                    vehicletest.startTimers();
+                                        vehicletest.startTimers();
+                }
 
-//                onPressAndHold: meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
+                Label {
+                    id: label
+                    x: 127
+                    y: 175
+                    width: 100
+                    height: 15
+                    text: qsTr("POWER")
+                    color: "white"
+                    font.family: "Times New Roman"
+                    font.pointSize: 10
                 }
             }
 

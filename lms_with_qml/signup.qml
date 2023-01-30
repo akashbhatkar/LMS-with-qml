@@ -173,6 +173,7 @@ Item {
                     font.bold: true
                     font.pointSize: 20
                     color: "red"
+                    font.family: "Times New Roman"
                 }
                 Row{
                     spacing: 95
@@ -180,6 +181,9 @@ Item {
                         id:usersignlabel
                         text: qsTr("Username")
                         font.pointSize: 15
+                        color: "yellow"
+                        font.bold: true
+                        font.family: "Times New Roman"
 
                     }
                     TextField{
@@ -197,7 +201,9 @@ Item {
                         id:passsignlabel
                         text: qsTr("Enter Password")
                         font.pointSize: 15
-
+                        color: "yellow"
+                        font.family: "Times New Roman"
+                        font.bold: true
                     }
                     TextField{
                         id:passsigntext
@@ -214,6 +220,9 @@ Item {
                         id:repasssignlabel
                         text: qsTr("Re-Enter Password")
                         font.pointSize: 15
+                        color: "yellow"
+                        font.family: "Times New Roman"
+                        font.bold: true
 
                     }
                     TextField{

@@ -8,8 +8,9 @@ Item {
     property int sec: 00
     property int min: 00
     property int hours: 00
+    property int rpmval: 00
     property color lightgreencolor: "lightgreen"
-    property color yellowcolor: "yellow"
+    property color yellowcolor: "orange"
     property color redcolor: "red"
     property string lightonn: "qrc:/Images/lightOn.png"
     property string lightoff: "qrc:/Images/lightOff.png"
@@ -20,6 +21,8 @@ Item {
         color: "#0000ff"
         anchors.top: parent.top
         anchors.bottom: parent.bottom
+        anchors.rightMargin: -89
+        anchors.leftMargin: -102
         anchors.left: parent.left
         anchors.right: parent.right
         gradient: Gradient{
@@ -33,28 +36,29 @@ Item {
 
 Image {
     id: speedometerimage
-    x: 17
-    y: 99
+    x: 0
+    y: 146
 
-    source: "qrc:/Images/speedo-removebg-preview.png"
-    height: 237
-    width: 252
+    source: "qrc:/Images/220Speedo.png"
+    height: 280
+    visible: true
+    width: 280
 
 
 }
 
 Image {
     id: middlespeed
-    x: 222
-    y: 106
+    x: 233
+    y: 166
     source: "qrc:/Images/middleDashboard-removebg-preview.png"
-    height: 212
+    height: 236
     width: 284
 
     Image {
         id: rightarrow
         x: 205
-        y: 171
+        y: 195
         width: 57
         height: 45
         source: "qrc:/Images/RightArrow.png"
@@ -83,31 +87,37 @@ Connections{
     target: vehicletest
         onNotifyVehicleSpeed:
         {
+            console.log(speed)
             diall.value=speed
+
             if((speed>0)&&(speed<60))
             {
-                secondgrad.color=lightgreencolor
+                rectangle1.color=lightgreencolor
             }
             else if((speed>60)&&(speed<120))
-                secondgrad.color=yellowcolor
-            else if((speed>120)&&(speed=180))
-                secondgrad.color=redcolor
+                rectangle1.color=yellowcolor
+            else if((speed>120)&&(speed<180))
+                rectangle1.color=redcolor
 
-            else if(speed>180)
+            if(speed>220)
             {
                 vehicletest.stopSpeed()
+
             }
 
 
         }
 
         onNotifyEngineRPM:{
-            if(rpm>8)
+            if(rpm>8000)
             {
                 vehicletest.stopRPM()
             }
             else
+            {
                 rpmdiall.value=rpm
+                rpmval= rpm/1000
+            }
 
         }
 
@@ -125,6 +135,9 @@ Connections{
             {
                 vehicletest.stopFuel()
                 animationOne.start()
+                diall.value=0
+                rpmdiall.value=0
+                rpmval=0
 
             }
             else
@@ -141,12 +154,9 @@ Connections{
            rightarrowanimationone.start()
             leftarrowanimationone.target=leftarrow
             leftarrowanimationone.start()
-            console.log("started")
-
-
         }
         onIndicatorBlinkOff:{
-            console.log("stopped")
+
              rightarrowanimationone.target=img
             leftarrowanimationone.target=img2
             vehicletest.indicatorstopfunction()
@@ -175,8 +185,8 @@ Connections{
 }
 
 Row{
-    x: 288
-    y: 154
+    x: 294
+    y: 223
     width: 70
     height: 30
     spacing:7
@@ -201,47 +211,57 @@ Row{
 //}
 Dial{
     id:diall
-    x: 2
-    y: 99
-    height: 237
-    width: 288
+    x: 48
+    y: 205
+    height: 148
+    wrap: true
+    width: 172
     from: 0
-    to:180
+    to:220
 
 
 
     Rectangle {
         id: rectangle1
-        x: 94
-        y: 69
-        opacity: 50
+        x: 36
+        y: 22
+        visible: true
         width: 100
         height: 100
         radius:100
-        gradient: Gradient{
-            GradientStop{position: 0.0; color: "transparent"}
-            GradientStop{id:secondgrad;position: 1.7; color: "lightgreen"}
+        color: "lightgreen"
 
+        Tumbler {
+            id: tumbler
+            x: -6
+            y: 40
+            width: 57
+            height: 25
+            font.pointSize: 15
+            font.bold: true
+            visibleItemCount: 1
+            model: 221
+            currentIndex: diall.value
         }
     }
 
     Label {
         id: kmphlabel
-        x: 103
-        y: 111
-        width: 77
-        height: 31
-        text:Math.round(diall.value)+" Kmph"
+        x: 75
+        y: 64
+        width: 61
+        height: 19
+        text:" Km/h"
         font.family: "Times New Roman"
         font.bold: true
         font.pointSize: 15
-        color: "orange"
+        color: "Black"
     }
 
     Image {
         id: leftarrow
-        x: 250
-        y: 176
+        x: 207
+        y: 155
         width: 45
         height: 39
         source: "qrc:/Images/LeftArrow.png"
@@ -266,15 +286,17 @@ Dial{
             onStopped: leftarrowanimationone.start()
         }
 }
-        Image {
-            id: batteryimage
-            x: 300
-            y: 181
+
+Image {
+    id: batteryimage
+            x: 262
+            y: 156
             width: 30
             height: 25
             source: "qrc:/Images/Battery.png"
             fillMode: Image.PreserveAspectFit
         }
+
 
 }
 
@@ -296,12 +318,12 @@ Dial{
         height: 45
         anchors.top:parent.top
         source: "qrc:/Images/tempIndicator.png"
-        anchors.topMargin: 104
+        anchors.topMargin: 171
     }
     Label {
         id: templabel
         x: 329
-        y: 114
+        y: 179
 
         width: 77
         height: 25
@@ -340,83 +362,74 @@ Image {
 
 
 
-Image {
+Image{
     id: rpmimagbe
-    x: 455
-    y: 94
-    source: "qrc:/Images/rpm_merter.png"
-    height: 252
-    width: 242
-
+    x: 469
+    y: 146
+    source: "qrc:/Images/rpmwhite.png"
+    height: 280
+    visible: true
+    width: 280
+}
     Dial{
         id:rpmdiall
-        x: -23
-        y: 7
-        height: 237
-        width: 288
-        from: 1
-        to:10
-        Rectangle {
-            id: bottomrect
-            x: -415
-            y: 185
-            width: 678
-            height: 64
-            radius:20
-            gradient: Gradient{
-                GradientStop{position: 0.0; color: "transparent"}
-                GradientStop{position: 2.0; color: "red"}
-
-            }
-                    }
-
-            Image {
-                id: carimage
-                x: -99
-                y: 177
-                width: 47
-                height: 36
-                source: "qrc:/Images/car.png"
-                fillMode: Image.PreserveAspectFit
-            }
-
-
+        x: 525
+        y: 203
+        height: 140
+        width: 166
+        from: 0
+        to:8000
 
         Rectangle {
             id: rectangle
-            x: 93
-            y: 72
-            width: 100
-            height: 100
-            radius: 100
-            gradient: Gradient{
-                GradientStop{position: 0.0; color: "transparent"}
-                GradientStop{position: 2.0; color: "skyblue"}
+            x: 39
+            y: 27
+            width: 90
+            height: 90
+            visible: true
+            radius: 90
+            color: lightgreencolor
 
+            Tumbler {
+                id: tumbler1
+                x: 14
+                y: 22
+                width: 60
+                height: 37
+                font.pointSize: 15
+                font.bold: true
+                visibleItemCount: 1
+                model: 9
+                currentIndex: rpmval
             }
         }
 
          Label {
              id: rpmlabel
-             x: 99
-             y: 110
+             x: 50
+             y: 82
              width: 77
              height: 31
              font.bold: true
-             font.pointSize: 15
-             color: "orange"
-             text: Math.round(rpmdiall.value)+"X100rpm"
+             font.pointSize: 10
+             color: "black"
+             text:"X1000 RPM"
              font.family: "Times New Roman"
          }
+    }
          Image {
              id: lightimage
-             x: -42
-             y: 177
+             x: 390
+             y: 361
              width: 30
              height: 30
              source: "qrc:/Images/lightOff.png"
              MouseArea{
                  anchors.fill:parent
+                 anchors.rightMargin: 0
+                 anchors.bottomMargin: -2
+                 anchors.leftMargin: 0
+                 anchors.topMargin: 2
                  onClicked: {
 
                      if(lightimage.source=="qrc:/Images/lightOff.png")
@@ -430,13 +443,22 @@ Image {
                  onPressAndHold: lightimage.source="qrc:/Images/lightOff.png"
              }
          }
-    }
-}
+         Image {
+             id: carimage
+             x: 336
+             y: 360
+             width: 47
+             height: 36
+             source: "qrc:/Images/car.png"
+             fillMode: Image.PreserveAspectFit
+         }
+
+
 
     Row{
         id:fuelrow
-        x: 309
-        y: 197
+        x: 314
+        y: 272
         width: 102
         height: 43
         anchors.verticalCenterOffset: -19
@@ -480,8 +502,8 @@ Image {
     }
 
     Row{
-        x: 281
-        y: 241
+        x: 293
+        y: 317
         width: 172
         height: 24
         spacing:5
@@ -517,12 +539,23 @@ Image {
             font.family: "Times New Roman"
         }
     }
+//Button{
+//    id:acclerator
+//    x:0
+//    y:0
+//    height: 100
+//    width: 70
 
-
-//        }
+//    onPressed:  vehicletest.startTimers();
+//    onReleased: {
+//        vehicletest.startTimers();
+//        vehicletest.stopSpeed();
+//        vehicletest.stopRPM();
+//        vehicletest.stopTemp();
+//        vehicletest.stopFuel();
+//    }
+//    }
 }
-
-
 /*##^##
 Designer {
     D{i:0;autoSize:true;height:480;width:640}
