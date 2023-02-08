@@ -49,6 +49,11 @@ target_compile_definitions(vehicle
 target_link_libraries(vehicle
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
 
+
+find_package(Qt5 REQUIRED COMPONENTS Sql)
+target_link_libraries(vehicle PRIVATE Qt5::Sql)
+
+
 include_directories("${CMAKE_SOURCE_DIR}/VehicleDataSender")
 target_link_directories(vehicle PUBLIC VehicleDataSender/)
 target_link_libraries(vehicle PUBLIC VehicleDataSender)

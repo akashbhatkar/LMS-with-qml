@@ -3,6 +3,7 @@
         <file>main.qml</file>
         <file>Meter.qml</file>
         <file>Startpage.qml</file>
+        <file>Menupage.qml</file>
     </qresource>
     <qresource prefix="/Images">
         <file>fuelIndicatorGREEN.png</file>
@@ -22,5 +23,26 @@
         <file>220Speedo.png</file>
         <file>rpmwhite.png</file>
         <file>background.png</file>
+        <file>stearing.png</file>
+        <file>navigationOn.png</file>
+        <file>navigation.png</file>
+        <file>applecarplay.png</file>
+        <file>applecarplayOn.png</file>
+        <file>bluetooth.png</file>
+        <file>bluetoothOn.png</file>
+        <file>callbutton.png</file>
+        <file>callbuttonOn.png</file>
+        <file>radio.png</file>
+        <file>radioOn.png</file>
+        <file>settingOn.png</file>
+        <file>setting.png</file>
+        <file>wiper.png</file>
+        <file>wiperOn.png</file>
+        <file>engineStop.png</file>
+        <file>horn.png</file>
+        <file>carwallpaper.jpg</file>
+    </qresource>
+    <qresource prefix="/sounds">
+        <file>carhorn.wav</file>
     </qresource>
 </RCC>

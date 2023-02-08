@@ -3,11 +3,17 @@ import QtQuick.Controls 2.3
 import QtQuick.Controls.Styles 1.4
 import QtQuick 2.1
 import QtQml 2.1
-
+import QtQuick.Window 2.12
+import QtMultimedia 5.0
 Item {
-    property int sec: 00
-    property int min: 00
-    property int hours: 00
+    id: meteritem
+
+    property int sec: vehicletest.passEngineSecond()
+    property int min: vehicletest.passEngineMinute()
+    property int hours: vehicletest.passEngineHour()
+
+    property int distance: vehicletest.passkms()
+
     property int rpmval: 00
     property color lightgreencolor: "lightgreen"
     property color yellowcolor: "orange"
@@ -16,35 +22,70 @@ Item {
     property string lightoff: "qrc:/Images/lightOff.png"
     property string dipperlight: "qrc:/Images/DipperLight.png"
 
+    property bool value: true
+    property bool value2: true
+    property bool enginevalue: true
 
-    Rectangle{
-        color: "#0000ff"
+      Rectangle{
+          id:backg
+        visible: true
+        color: "#fb0d0f37"
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.rightMargin: -89
         anchors.leftMargin: -102
         anchors.left: parent.left
         anchors.right: parent.right
-        gradient: Gradient{
-            GradientStop{position: 0.0; color: "blue"}
-            GradientStop{position: 0.7;color: "black"}
+//        gradient: Gradient{
+//            GradientStop{position: 0.0; color: "blue"}
+//            GradientStop{position: 0.7;color: "black"}
+
+//        }
+
+        Image {
+            id: glowimage1
+            x: 0
+            y: 291
+            width: 641
+            height: 189
+            visible: false
+            source: "qrc:/Images/blueglow.png"
 
         }
 
-
+        Image {
+            id: glowimage2
+            x: 448
+            y: 291
+            width: 661
+            height: 189
+            visible: false
+            source: "qrc:/Images/blueglow.png"
+            fillMode: Image.Stretch
+        }
     }
-
 Image {
     id: speedometerimage
     x: 0
     y: 146
-
     source: "qrc:/Images/220Speedo.png"
     height: 280
     visible: true
     width: 280
 
+    Label {
+        id: distancelabel
+        x: 101
+        y: 215
+        width: 109
+        height: 20
+        text: distance+" kms"
+        font.family: "Times New Roman"
+        color: "#000000"
+        font.bold: true
+        font.pointSize: 20
 
+    }
 }
 
 Image {
@@ -57,7 +98,7 @@ Image {
 
     Image {
         id: rightarrow
-        x: 205
+        x: 210
         y: 195
         width: 57
         height: 45
@@ -87,25 +128,12 @@ Connections{
     target: vehicletest
         onNotifyVehicleSpeed:
         {
-            console.log(speed)
             diall.value=speed
-
-            if((speed>0)&&(speed<60))
-            {
-                rectangle1.color=lightgreencolor
-            }
-            else if((speed>60)&&(speed<120))
-                rectangle1.color=yellowcolor
-            else if((speed>120)&&(speed<180))
-                rectangle1.color=redcolor
-
             if(speed>220)
             {
                 vehicletest.stopSpeed()
 
             }
-
-
         }
 
         onNotifyEngineRPM:{
@@ -118,7 +146,6 @@ Connections{
                 rpmdiall.value=rpm
                 rpmval= rpm/1000
             }
-
         }
 
         onNotifyOutsideTemp:{
@@ -131,6 +158,7 @@ Connections{
         }
 
         onNotifyFuelLevel:{
+
             if(fuel<0)
             {
                 vehicletest.stopFuel()
@@ -149,17 +177,21 @@ Connections{
             }
         }
         onIndicatorBlink:{
-            rightarrowanimationone.target=rightarrow
 
-           rightarrowanimationone.start()
             leftarrowanimationone.target=leftarrow
             leftarrowanimationone.start()
         }
         onIndicatorBlinkOff:{
-
-             rightarrowanimationone.target=img
             leftarrowanimationone.target=img2
-            vehicletest.indicatorstopfunction()
+//            vehicletest.indicatorstopfunction()
+        }
+        onRightIndicatorBlink:{
+            rightarrowanimationone.target=rightarrow
+
+           rightarrowanimationone.start()
+        }
+        onRightIndicatorBlinkOff:{
+            rightarrowanimationone.target=img
         }
 
         onTotalEngineTime:{
@@ -170,7 +202,7 @@ Connections{
                 ++min
                 if(min===60)
                 {
-                    min=0
+                    min1=0
                     ++hours
                     if(hours===12)
                     {
@@ -180,7 +212,33 @@ Connections{
                     }
                 }
             }
-
+        }
+        onDistancesignal:{
+            distance=distance+1
+           }
+        onUsersignal:{
+            var colors=[]
+            colors=vehicletest.accesscolors(user)
+            backg.color=colors[0]
+            rectangle.color=colors[1]
+            rectangle1.color=colors[1]
+            templabel.color=colors[2]
+            label.color=colors[2]
+            fueltext.color=colors[2]
+            engtimelabel.color=colors[2]
+            distancelabel.color=colors[2]
+        }
+        onMakedefault:{
+            var colors=[]
+            colors=vehicletest.accesscolors(defaultuser)
+            backg.color=colors[0]
+            rectangle.color=colors[1]
+            rectangle1.color=colors[1]
+            templabel.color=colors[2]
+            label.color=colors[2]
+            fueltext.color=colors[2]
+            engtimelabel.color=colors[2]
+            distancelabel.color=colors[2]
         }
 }
 
@@ -208,7 +266,7 @@ Row{
         font.family: "Times New Roman"
     }
 }
-//}
+
 Dial{
     id:diall
     x: 48
@@ -231,10 +289,27 @@ Dial{
         radius:100
         color: "lightgreen"
 
+        Image {
+            id: hornimage
+            x: 33
+            y: 13
+            width: 34
+            height: 30
+            source: "qrc:/Images/horn.png"
+            fillMode: Image.Stretch
+
+            MouseArea{
+                anchors.fill:parent
+                onClicked: {
+                   hornsound.play()
+                }
+            }
+        }
+
         Tumbler {
             id: tumbler
-            x: -6
-            y: 40
+            x: -4
+            y: 49
             width: 57
             height: 25
             font.pointSize: 15
@@ -244,16 +319,19 @@ Dial{
             currentIndex: diall.value
         }
     }
-
+    SoundEffect{
+        id:hornsound
+        source: "qrc:/sounds/carhorn.wav"
+    }
     Label {
         id: kmphlabel
-        x: 75
-        y: 64
+        x: 78
+        y: 74
         width: 61
         height: 19
         text:" Km/h"
         font.family: "Times New Roman"
-        font.bold: true
+        font.bold: false
         font.pointSize: 15
         color: "Black"
     }
@@ -289,7 +367,7 @@ Dial{
 
 Image {
     id: batteryimage
-            x: 262
+            x: 253
             y: 156
             width: 30
             height: 25
@@ -417,13 +495,14 @@ Image{
              font.family: "Times New Roman"
          }
     }
-         Image {
-             id: lightimage
-             x: 390
-             y: 361
-             width: 30
-             height: 30
-             source: "qrc:/Images/lightOff.png"
+    Image {
+        id: lightimage
+        x: 340
+        y: 361
+        width: 30
+        height: 30
+        source: "qrc:/Images/lightOff.png"
+
              MouseArea{
                  anchors.fill:parent
                  anchors.rightMargin: 0
@@ -433,24 +512,68 @@ Image{
                  onClicked: {
 
                      if(lightimage.source=="qrc:/Images/lightOff.png")
+                     {
                      lightimage.source="qrc:/Images/lightOn.png"
+                         glowimage1.visible=true
+                         glowimage2.visible=true
+                     }
 
                      else if(lightimage.source=="qrc:/Images/lightOn.png")
+                     {
                        lightimage.source="qrc:/Images/DipperLight.png"
+                         glowimage1.visible=true
+                         glowimage2.visible=true
+                     }
                      else
+                     {
                          lightimage.source="qrc:/Images/lightOn.png"
+                         glowimage1.visible=true
+                         glowimage2.visible=true
+                     }
                  }
-                 onPressAndHold: lightimage.source="qrc:/Images/lightOff.png"
+                 onPressAndHold: {
+                     glowimage1.visible=false
+                     glowimage2.visible=false
+                     lightimage.source="qrc:/Images/lightOff.png"
+                 }
              }
          }
+    Image {
+        id: stearingimage
+        x: 370
+        y: 359
+        width: 39
+        height: 34
+        source: "qrc:/Images/stearing.png"
+        fillMode: Image.PreserveAspectFit
+
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+
+                var component = Qt.createComponent("qrc:/Menupage.qml")
+                            var window    = component.createObject(parent)
+                            window.show()
+            }
+        }
+    }
          Image {
-             id: carimage
-             x: 336
-             y: 360
-             width: 47
+             id: backimage
+             x: 414
+             y: 359
+             width: 38
              height: 36
-             source: "qrc:/Images/car.png"
-             fillMode: Image.PreserveAspectFit
+             source: "qrc:/Images/engineStop.png"
+
+             MouseArea{
+                 anchors.fill: parent
+                 onClicked: {
+//                     meterstack.replace(Qt.resolvedUrl("qrc:/Startpage.qml"))
+                     vehicletest.updateValues(hours,min,sec)
+                     vehicletest.updatedistance(distance)
+                     Qt.quit()
+                 }
+             }
          }
 
 
@@ -500,61 +623,15 @@ Image{
             color: "orange"
         }
     }
-
-    Row{
-        x: 293
-        y: 317
-        width: 172
-        height: 24
-        spacing:5
         Label{
             id:engtimelabel
-            text: qsTr("Engine Time")
+            x: 290
+            y: 321
+            text:"Engine Time"+" "+hours+"H "+min+"M "+sec+"S"
             font.pointSize: 12
             color: "orange"
             font.family: "Times New Roman"
         }
-        Label{
-            id:hrlabel
-            text: hours+"H"
-            font.pointSize: 12
-            color: "orange"
-            font.family: "Times New Roman"
-        }
-
-        Label{
-         id:minlable
-         text:min+"M"
-         font.pointSize: 12
-         color: "orange"
-         font.family: "Times New Roman"
-
-        }
-
-        Label{
-            id:seclabel
-            text: sec+"S"
-            font.pointSize: 12
-            color: "orange"
-            font.family: "Times New Roman"
-        }
-    }
-//Button{
-//    id:acclerator
-//    x:0
-//    y:0
-//    height: 100
-//    width: 70
-
-//    onPressed:  vehicletest.startTimers();
-//    onReleased: {
-//        vehicletest.startTimers();
-//        vehicletest.stopSpeed();
-//        vehicletest.stopRPM();
-//        vehicletest.stopTemp();
-//        vehicletest.stopFuel();
-//    }
-//    }
 }
 /*##^##
 Designer {

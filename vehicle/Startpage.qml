@@ -2,12 +2,38 @@ import QtQuick 2.0
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.3
+import QtQml 2.12
 Item {
+    id:startitem
+    property bool value: true
+    Connections{
+
+    target: vehicletest
+
+            onEnginestarting:{
+
+                meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
+
+            }
+            onMakedefault:{
+
+            }
+    }
+
+
     Rectangle{
+        id:backg
         anchors.fill:parent
-        color: "#fb0d0f37"
+        color:"#fb0d0f37"
 
-
+//Connections{
+//    target: vehicletest
+//    onEnginestarting:{
+//          meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
+//         vehicletest.startTimers();
+//        vehicletest.stopEngine()
+//    }
+//}
         Rectangle{
 
             anchors.centerIn: parent
@@ -33,9 +59,17 @@ Item {
 
             MouseArea{
                 anchors.fill: parent
-                onPressAndHold: {
+                onClicked: {
+                    vehicletest.startEngine()
+//                    vehicletest.startTimers();
+                    vehicletest.createtable()
+                        label.text="ON"
+                        value=false
                     meterstack.replace(Qt.resolvedUrl("qrc:/Meter.qml"))
-                                        vehicletest.startTimers();
+                   vehicletest.startTimers();
+                  vehicletest.stopEngine()
+                    vehicletest.applythemestart()
+
                 }
 
                 Label {
@@ -44,7 +78,7 @@ Item {
                     y: 175
                     width: 100
                     height: 15
-                    text: qsTr("POWER")
+                    text: qsTr("OFF")
                     color: "white"
                     font.family: "Times New Roman"
                     font.pointSize: 10
@@ -53,6 +87,12 @@ Item {
 
         }
     }
+//    Text {
+//        id: time
+//        text:hour
+//        color: "yellow"
+//        font.pointSize: 25
+//    }
 }
 
 /*##^##
